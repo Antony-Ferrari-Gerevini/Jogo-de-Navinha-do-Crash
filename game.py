@@ -13,6 +13,7 @@ def game_over(pontos):
 
         bgGameOver = pygame.image.load('assets/fundoGameOver.jpg')
         gameDisplay.blit(bgGameOver, (0, 0))
+        pygame.mixer.music.stop()
         
         fonte = pygame.font.Font("freesansbold.ttf", 50)
         fonteContinue = pygame.font.Font("freesansbold.ttf", 25)
@@ -54,6 +55,13 @@ def game():
     bg = pygame.image.load('assets/fundo.png')
     nitro = pygame.image.load('assets/nitro.png')
     crash = pygame.image.load('assets/crash.png')
+
+    pygame.mixer.music.load('assets/trilha.mp3')
+    pygame.mixer.music.play(-1)                                                       #Esse "-1" quer dizer que vai tocar em loop
+    pygame.mixer.music.set_volume(1)
+    pontoSom = pygame.mixer.Sound('assets/ponto.mp3')
+    morte1Som = pygame.mixer.Sound('assets/morte1.mp3')
+    morte2Som = pygame.mixer.Sound('assets/morte2.mp3')
  
 
 
@@ -113,6 +121,7 @@ def game():
                     posXNitro = posXNitro + velocidade
                 else:
                     direcaoNitro = False
+                    pygame.mixer.Sound.play(pontoSom)
                     posYNitro = random.randrange(0, altura-50)
                     pontos = pontos + 1
                     if velocidade < 30:
@@ -122,6 +131,7 @@ def game():
                     posXNitro = posXNitro - velocidade
                 else:
                     direcaoNitro = True
+                    pygame.mixer.Sound.play(pontoSom)
                     posYNitro = random.randrange(0, altura-50)
                     pontos = pontos + 1
                     velocidade = velocidade + 1
@@ -138,6 +148,8 @@ def game():
             if len(list(set(pixelsYCrash) & set(pixelsYNitro))) > 0:                  #Detectando colisões
                 if len(list(set(pixelsXCrash) & set(pixelsXNitro))) > 0:
                     playing = False
+                    pygame.mixer.Sound.play(morte1Som)
+                    pygame.mixer.Sound.play(morte2Som)
                     game_over(pontos)
 
 
