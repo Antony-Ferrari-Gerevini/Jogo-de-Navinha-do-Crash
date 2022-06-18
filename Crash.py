@@ -40,6 +40,14 @@ def game():
 
     posXNitro = -250
     posYNitro = random.randrange(0, altura-50)
+    posXNitro2 = 0
+    posYNitro2 = random.randrange(0, altura-50)
+    posXNitro3 = 0
+    posYNitro3 = random.randrange(0, altura-50)
+    posXNitro4 = 0
+    posYNitro4 = random.randrange(0, altura-50)
+    posXNitro5 = 0
+    posYNitro5 = random.randrange(0, altura-50)
     larguraNitro = 51
     alturaNitro = 50
 
@@ -134,7 +142,52 @@ def game():
                     pygame.mixer.Sound.play(pontoSom)
                     posYNitro = random.randrange(0, altura-50)
                     pontos = pontos + 1
-                    velocidade = velocidade + 1
+                    if velocidade < 30:
+                        velocidade = velocidade + 1
+            
+            if direcaoNitro == True and pontos >= 30:                                 #Caixas de Nitro 2
+                if posXNitro2 < largura:
+                    posXNitro2 = posXNitro2 + velocidade
+                else:
+                    posYNitro2 = random.randrange(0, altura-50)
+            elif direcaoNitro == False and pontos >= 30:
+                if posXNitro2 >= -50:
+                    posXNitro2 = posXNitro2 - velocidade
+                else:
+                    posYNitro2 = random.randrange(0, altura-50)
+
+            if direcaoNitro == True and pontos >= 40:                                 #Caixas de Nitro 3
+                if posXNitro3 < largura:
+                    posXNitro3 = posXNitro3 + velocidade
+                else:
+                    posYNitro3 = random.randrange(0, altura-50)
+            elif direcaoNitro == False and pontos >= 40:
+                if posXNitro3 >= -50:
+                    posXNitro3 = posXNitro3 - velocidade
+                else:
+                    posYNitro3 = random.randrange(0, altura-50)
+
+            if direcaoNitro == True and pontos >= 50:                                 #Caixas de Nitro 4
+                if posXNitro4 < largura:
+                    posXNitro4 = posXNitro4 + velocidade
+                else:
+                    posYNitro4 = random.randrange(0, altura-50)
+            elif direcaoNitro == False and pontos >= 50:
+                if posXNitro4 >= -50:
+                    posXNitro4 = posXNitro4 - velocidade
+                else:
+                    posYNitro4 = random.randrange(0, altura-50)
+
+            if direcaoNitro == True and pontos >= 60:                                 #Caixas de Nitro 5
+                if posXNitro5 < largura:
+                    posXNitro5 = posXNitro5 + velocidade
+                else:
+                    posYNitro5 = random.randrange(0, altura-50)
+            elif direcaoNitro == False and pontos >= 60:
+                if posXNitro5 >= -70:
+                    posXNitro5 = posXNitro5 - velocidade
+                else:
+                    posYNitro5 = random.randrange(0, altura-50)
 
 
 
@@ -160,6 +213,14 @@ def game():
             
             gameDisplay.blit(bg, (0, 0))                                              #Colocando as coisas na tela
             gameDisplay.blit(nitro, (posXNitro, posYNitro))
+            if pontos >= 30:
+                gameDisplay.blit(nitro, (posXNitro2, posYNitro2))
+            if pontos >= 40:
+                gameDisplay.blit(nitro, (posXNitro3, posYNitro3))
+            if pontos >= 50:
+                gameDisplay.blit(nitro, (posXNitro4, posYNitro4))
+            if pontos >= 60:
+                gameDisplay.blit(nitro, (posXNitro5, posYNitro5))
             gameDisplay.blit(crash, (posXCrash, posYCrash))    
             gameDisplay.blit(texto, (20, 20))
 
