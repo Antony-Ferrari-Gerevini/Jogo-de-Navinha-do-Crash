@@ -17,8 +17,10 @@ def game():
 
     posXCrash = 1100
     posYCrash = 350
-    movXCrash = 0
-    movYCrash = 0
+    movLeftCrash = 0
+    movRightCrash = 0
+    movUpCrash = 0
+    movDownCrash = 0
 
     bg = pygame.image.load('assets/fundo.png')
     nitro = pygame.image.load('assets/nitro.png')
@@ -39,21 +41,39 @@ def game():
 
                 if event.type == pygame.KEYDOWN:                                      #Quando um botão é pressionado
                     if event.key == pygame.K_a:
-                        movXCrash = -20
+                        movLeftCrash = -20
                     elif event.key == pygame.K_d:
-                        movXCrash = 20
+                        movRightCrash = 20
                     elif event.key == pygame.K_w:
-                        movYCrash = -20
+                        movUpCrash = -20
                     elif event.key == pygame.K_s:
-                        movYCrash = 20
-                
-                if event.type == pygame.KEYUP:
-                    if event.key == pygame.K_a or event.key == pygame.K_d or event.key == pygame.K_w or event.key == pygame.K_s:     #Quando um botão é solto
-                        movXCrash = 0
-                        movYCrash = 0
+                        movDownCrash = 20
 
-            posXCrash = posXCrash + movXCrash
-            posYCrash = posYCrash + movYCrash
+                if event.type == pygame.KEYUP:                                        #Quando um botão é solto
+                    if event.key == pygame.K_a:
+                        movLeftCrash = 0
+                    elif event.key == pygame.K_d:
+                        movRightCrash = 0
+                    elif event.key == pygame.K_w:
+                        movUpCrash = 0
+                    elif event.key == pygame.K_s:
+                        movDownCrash = 0
+
+                if direcaoCrash == True and movLeftCrash + movRightCrash < 0:         #Fazer o Crash mudar de direção
+                    crash = pygame.transform.flip(crash, True, False)
+                    direcaoCrash = False
+                elif direcaoCrash == False and movRightCrash + movRightCrash > 0:
+                    crash = pygame.transform.flip(crash, True, False)
+                    direcaoCrash = True
+
+            if posXCrash >= 20:                                                        #Evitar que o Crash saia da tela
+                posXCrash = posXCrash + movLeftCrash
+            if posXCrash <= largura - 135:
+                posXCrash = posXCrash + movRightCrash
+            if posYCrash >= 10:
+                posYCrash = posYCrash + movUpCrash
+            if posYCrash <= altura - 100:
+                posYCrash = posYCrash + movDownCrash
 
 
 
