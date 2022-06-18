@@ -1,5 +1,30 @@
 from assets.variables import *
 
+def game_over(pontos):
+    
+    while True:
+        for event in gameEvents.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    game()
+
+        bgGameOver = pygame.image.load('assets/fundoGameOver.jpg')
+        gameDisplay.blit(bgGameOver, (0, 0))
+        
+        fonte = pygame.font.Font("freesansbold.ttf", 50)
+        fonteContinue = pygame.font.Font("freesansbold.ttf", 25)
+        texto = fonte.render(str(pontos) + " pontos!", True, white)
+        textoContinue = fonteContinue.render("Pressione enter para reiniciar...", True, white)
+        
+        gameDisplay.blit(textoContinue, (550, 380))
+        gameDisplay.blit(texto, (630, 300))
+        pygameDisplay.update()
+        clock.tick(30)
+
+
 
 
 
@@ -14,9 +39,13 @@ def game():
 
     posXNitro = -250
     posYNitro = random.randrange(0, altura-50)
+    larguraNitro = 51
+    alturaNitro = 50
 
     posXCrash = 1100
     posYCrash = 350
+    larguraCrash = 107
+    alturaCrash = 80
     movLeftCrash = 0
     movRightCrash = 0
     movUpCrash = 0
@@ -96,6 +125,20 @@ def game():
                     posYNitro = random.randrange(0, altura-50)
                     pontos = pontos + 1
                     velocidade = velocidade + 1
+
+
+
+
+
+            pixelsXCrash = list(range(posXCrash+20, posXCrash + larguraCrash-20))     #Ajustando hitboxes
+            pixelsYCrash = list(range(posYCrash+20, posYCrash + alturaCrash+1))
+            pixelsXNitro = list(range(posXNitro, posXNitro + larguraNitro+1))
+            pixelsYNitro = list(range(posYNitro, posYNitro + alturaNitro+1))
+
+            if len(list(set(pixelsYCrash) & set(pixelsYNitro))) > 0:                  #Detectando colisões
+                if len(list(set(pixelsXCrash) & set(pixelsXNitro))) > 0:
+                    playing = False
+                    game_over(pontos)
 
 
 
