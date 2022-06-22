@@ -1,0 +1,5 @@
+setup.py
+Crash.egg-info/PKG-INFO
+Crash.egg-info/SOURCES.txt
+Crash.egg-info/dependency_links.txt
+Crash.egg-info/top_level.txt
